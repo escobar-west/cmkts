@@ -1,18 +1,16 @@
 import requests
-import datetime as dt
-import polars
 
 
 class KrakenApiHandler:
-    def __init__(self):
+    def __init__(self) -> None:
         self._session = requests.Session()
 
-    def get_recent_trades(self, pair: str, epoch_start: int):
+    def get_recent_trades(self, pair: str, epoch_start: int) -> dict:
         endpoint = f"/public/Trades?pair={pair}&since={epoch_start}"
         url = self.root_url + endpoint
         resp = self._session.get(url)
-        print(resp.json())
+        return resp.json()
 
     @property
-    def root_url(self):
+    def root_url(self) -> str:
         return "https://api.kraken.com/0"
